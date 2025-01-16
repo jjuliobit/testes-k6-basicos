@@ -1,7 +1,7 @@
 # Introdução aos testes de performance com k6
 
 <h1 align="left">
-    <img src=".github/logo-stiker.svg" width="250px">
+    <img src=".github/K6-load-testing-tool-logo.svg" width="250px">
 </h1>
 
 # User API
