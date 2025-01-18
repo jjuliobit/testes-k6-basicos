@@ -1,0 +1,26 @@
+name: Testes de Desempenho com k6
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-k6-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Instala o k6 no ambiente
+      - name: Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y k6
+
+      # Executa os testes k6
+      - name: Run k6 tests
+        run: k6 run home.js
