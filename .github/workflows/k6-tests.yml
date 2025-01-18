@@ -15,10 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Verifica os arquivos no repositório para depuração
-      - name: List project files
-        run: ls -R
-
       # Instala o k6 no ambiente
       - name: Install k6
         run: |
@@ -29,7 +25,21 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y k6
 
-
-      # Executa os testes k6
+      # Executa os testes k6 e gera o relatório HTML
       - name: Run k6 tests
         run: k6 run tests/home.js
+
+      # Instala o wkhtmltoimage para converter HTML em imagem
+      - name: Install wkhtmltoimage
+        run: sudo apt-get install -y wkhtmltopdf
+
+      # Converte o relatório HTML para uma imagem PNG
+      - name: Convert HTML to Image
+        run: wkhtmltoimage summary.html summary.png
+
+      # Faz upload da imagem gerada como artefato do workflow
+      - name: Upload Image Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: k6-summary-image
+          path: summary.png
