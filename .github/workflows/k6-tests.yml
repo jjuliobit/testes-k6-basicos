@@ -3,7 +3,7 @@ name: Testes de Desempenho com k6
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
@@ -15,12 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Verifica os arquivos no repositório para depuração
+      - name: List project files
+        run: ls -R
+
       # Instala o k6 no ambiente
       - name: Install k6
         run: |
-          sudo apt-get update
+          sudo apt-get update -y
           sudo apt-get install -y k6
 
       # Executa os testes k6
       - name: Run k6 tests
-        run: k6 run home.js
+        run: k6 run tests/home.js
